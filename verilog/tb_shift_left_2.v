@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_shift_left_2
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_shift_left_2;
@@ -10,13 +7,11 @@ module tb_shift_left_2;
     reg  [25:0] jump_in;
     wire [27:0] jump_out;
 
-    // Instancia para Branch
     shift_left_2 #(.IN_WIDTH(32), .OUT_WIDTH(32)) uut_branch (
         .in(branch_in),
         .out(branch_out)
     );
 
-    // Instancia para Jump
     shift_left_2 #(.IN_WIDTH(26), .OUT_WIDTH(28)) uut_jump (
         .in(jump_in),
         .out(jump_out)

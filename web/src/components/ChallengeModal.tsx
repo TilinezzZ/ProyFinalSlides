@@ -24,7 +24,7 @@ export const ChallengeModal: React.FC<ChallengeModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       sounds.playVictory()
-      // Disparar confetti festivo
+
       confetti({
         particleCount: 120,
         spread: 70,
@@ -46,7 +46,7 @@ export const ChallengeModal: React.FC<ChallengeModalProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-in fade-in duration-300">
       <div className="relative w-full max-w-md rounded-2xl border border-amber-500/40 bg-slate-900 shadow-2xl shadow-amber-950/50 p-6 flex flex-col items-center text-center space-y-4">
-        {/* Trofeo y Resplandor */}
+
         <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500/30 to-yellow-600/40 border border-amber-500/50 shadow-xl shadow-amber-500/20 animate-bounce">
           <Trophy className="h-8 w-8 text-amber-300" />
         </div>
@@ -60,7 +60,6 @@ export const ChallengeModal: React.FC<ChallengeModalProps> = ({
           </p>
         </div>
 
-        {/* Estadísticas */}
         <div className="w-full grid grid-cols-3 gap-2 py-2">
           <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 flex flex-col items-center">
             <span className="text-[10px] text-slate-400 font-mono">Puntuación</span>
@@ -89,7 +88,6 @@ export const ChallengeModal: React.FC<ChallengeModalProps> = ({
           Has conectado correctamente los 18 componentes del procesador MIPS monociclo. ¡Tu procesador está listo para simular instrucciones!
         </p>
 
-        {/* Acciones */}
         <div className="w-full flex flex-col sm:flex-row gap-2 pt-2">
           <button
             onClick={() => {

@@ -1,11 +1,9 @@
-// Sistema de audio sintetizado con Web Audio API (100% nativo, sin archivos externos)
-
 class SoundEngine {
   private ctx: AudioContext | null = null
   private enabled: boolean = true
 
   constructor() {
-    // Inicialización perezosa al primer gesto del usuario
+
   }
 
   private initContext() {
@@ -29,7 +27,6 @@ class SoundEngine {
     return this.enabled
   }
 
-  // Sonido de encaje exitoso (chime positivo)
   public playSnap() {
     if (!this.enabled) return
     this.initContext()
@@ -43,11 +40,11 @@ class SoundEngine {
     osc1.type = 'triangle'
     osc2.type = 'sine'
 
-    osc1.frequency.setValueAtTime(523.25, now) // C5
-    osc1.frequency.exponentialRampToValueAtTime(783.99, now + 0.12) // G5
+    osc1.frequency.setValueAtTime(523.25, now)
+    osc1.frequency.exponentialRampToValueAtTime(783.99, now + 0.12)
 
-    osc2.frequency.setValueAtTime(1046.5, now) // C6
-    osc2.frequency.exponentialRampToValueAtTime(1318.5, now + 0.15) // E6
+    osc2.frequency.setValueAtTime(1046.5, now)
+    osc2.frequency.exponentialRampToValueAtTime(1318.5, now + 0.15)
 
     gain.gain.setValueAtTime(0.18, now)
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25)
@@ -62,7 +59,6 @@ class SoundEngine {
     osc2.stop(now + 0.25)
   }
 
-  // Sonido de error / rebote (buzz)
   public playError() {
     if (!this.enabled) return
     this.initContext()
@@ -86,7 +82,6 @@ class SoundEngine {
     osc.stop(now + 0.2)
   }
 
-  // Sonido de click / botón
   public playClick() {
     if (!this.enabled) return
     this.initContext()
@@ -110,7 +105,6 @@ class SoundEngine {
     osc.stop(now + 0.05)
   }
 
-  // Sonido de avance en simulación (pulso high-tech)
   public playPulse() {
     if (!this.enabled) return
     this.initContext()
@@ -134,13 +128,12 @@ class SoundEngine {
     osc.stop(now + 0.12)
   }
 
-  // Fanfarria de victoria (arpegio mayor brillante)
   public playVictory() {
     if (!this.enabled) return
     this.initContext()
     if (!this.ctx) return
 
-    const notes = [523.25, 659.25, 783.99, 1046.5] // C5, E5, G5, C6
+    const notes = [523.25, 659.25, 783.99, 1046.5]
     const startTime = this.ctx.currentTime
 
     notes.forEach((freq, index) => {

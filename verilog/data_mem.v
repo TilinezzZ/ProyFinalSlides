@@ -1,23 +1,18 @@
-// ============================================================================
-// Proyecto: Procesador MIPS Monociclo de 32 bits (Datapath Completo)
-// Módulo: Memoria de Datos (RAM síncrona en escritura, asíncrona en lectura)
-// ============================================================================
 `timescale 1ns / 1ps
 
 module data_mem (
-    input  wire        clk,            // Reloj del sistema
-    input  wire        rst,            // Reset general
-    input  wire        MemRead,        // Habilitador de lectura
-    input  wire        MemWrite,       // Habilitador de escritura
-    input  wire [31:0] Address_In,     // Dirección calculada por la ALU
-    input  wire [31:0] Data_In,        // Dato a escribir proveniente de DR2
-    output wire [31:0] Lectura         // Dato leído hacia Mux1
+    input  wire        clk,
+    input  wire        rst,
+    input  wire        MemRead,
+    input  wire        MemWrite,
+    input  wire [31:0] Address_In,
+    input  wire [31:0] Data_In,
+    output wire [31:0] Lectura
 );
 
     reg [31:0] ram [0:255];
     integer i;
 
-    // Inicialización y reset
     always @(posedge clk or posedge rst) begin
         if (rst) begin
             for (i = 0; i < 256; i = i + 1) begin
@@ -28,7 +23,6 @@ module data_mem (
         end
     end
 
-    // Lectura combinacional
     assign Lectura = (MemRead) ? ram[Address_In[9:2]] : 32'd0;
 
 endmodule

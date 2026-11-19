@@ -1,12 +1,8 @@
-// ============================================================================
-// Proyecto: Procesador MIPS Monociclo de 32 bits (Datapath Completo)
-// Módulo: Sign Ext (Extensión de signo 16 a 32 bits)
-// ============================================================================
 `timescale 1ns / 1ps
 
 module sign_ext (
-    input  wire [15:0] in,     // Inmediato de 16 bits
-    output wire [31:0] out     // Inmediato extendido con signo a 32 bits
+    input  wire [15:0] in,
+    output wire [31:0] out
 );
 
     assign out = {{16{in[15]}}, in};

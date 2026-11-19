@@ -1,8 +1,3 @@
-// ============================================================================
-// Proyecto: Procesador MIPS Monociclo de 32 bits (Datapath Completo)
-// Testbench: tb_mips_datapath_top (Simulación del Datapath Completo)
-// Arquitectura de Computadoras
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_mips_datapath_top;
@@ -10,7 +5,6 @@ module tb_mips_datapath_top;
     reg         clk;
     reg         rst;
 
-    // Señales de monitoreo
     wire [31:0] pc_out;
     wire [31:0] instruction;
     wire [4:0]  AR1;
@@ -25,7 +19,6 @@ module tb_mips_datapath_top;
     wire [31:0] mem_read_data;
     wire [31:0] next_pc;
 
-    // Instancia del Datapath Top-Level
     mips_datapath_top uut (
         .clk(clk),
         .rst(rst),
@@ -44,7 +37,6 @@ module tb_mips_datapath_top;
         .next_pc(next_pc)
     );
 
-    // Reloj con período de 10ns (frecuencia = 100MHz)
     always #5 clk = ~clk;
 
     initial begin
@@ -52,16 +44,11 @@ module tb_mips_datapath_top;
         $display("INICIANDO SIMULACION DEL DATAPATH COMPLETO MIPS 32-BIT");
         $display("====================================================================");
 
-        // Inicialización
         clk = 0;
         rst = 1;
         #15;
         rst = 0;
 
-        // --------------------------------------------------------------------
-        // CICLO 1: add $t0, $s1, $s2  (PC = 0x00400000)
-        // Suma $s1 (25) + $s2 (15) = 40, escribe en $t0 ($8)
-        // --------------------------------------------------------------------
         @(posedge clk);
         #1;
         $display("[CICLO 1] PC=0x%h | Instr=0x%h (add $t0, $s1, $s2)", pc_out, instruction);
@@ -73,10 +60,6 @@ module tb_mips_datapath_top;
             $error("          >>> ERROR en ejecucion de add.");
         end
 
-        // --------------------------------------------------------------------
-        // CICLO 2: sw $t0, 8($s1)  (PC = 0x00400004)
-        // Guarda $t0 (40) en memoria en ($s1 + 8) = 25 + 8 = 33
-        // --------------------------------------------------------------------
         @(posedge clk);
         #1;
         $display("[CICLO 2] PC=0x%h | Instr=0x%h (sw $t0, 8($s1))", pc_out, instruction);
@@ -88,10 +71,6 @@ module tb_mips_datapath_top;
             $error("          >>> ERROR en ejecucion de sw.");
         end
 
-        // --------------------------------------------------------------------
-        // CICLO 3: lw $t1, 8($s1)  (PC = 0x00400008)
-        // Lee de memoria en ($s1 + 8 = 33) y carga en $t1 ($9)
-        // --------------------------------------------------------------------
         @(posedge clk);
         #1;
         $display("[CICLO 3] PC=0x%h | Instr=0x%h (lw $t1, 8($s1))", pc_out, instruction);
@@ -103,10 +82,6 @@ module tb_mips_datapath_top;
             $error("          >>> ERROR en ejecucion de lw.");
         end
 
-        // --------------------------------------------------------------------
-        // CICLO 4: beq $t0, $t1, 1  (PC = 0x0040000C)
-        // Compara $t0 (40) con $t1 (40). Como son iguales, zf=1 y salta!
-        // --------------------------------------------------------------------
         @(posedge clk);
         #1;
         $display("[CICLO 4] PC=0x%h | Instr=0x%h (beq $t0, $t1, 1)", pc_out, instruction);
@@ -118,10 +93,6 @@ module tb_mips_datapath_top;
             $error("          >>> ERROR en ejecucion de beq.");
         end
 
-        // --------------------------------------------------------------------
-        // CICLO 5: j 0x00400020  (PC = 0x00400014 - Se evadio la instruccion en 0x00400010)
-        // Salto incondicional a la direccion objetivo
-        // --------------------------------------------------------------------
         @(posedge clk);
         #1;
         $display("[CICLO 5] PC=0x%h | Instr=0x%h (j 0x00400020)", pc_out, instruction);

@@ -9,17 +9,15 @@
   }
 }
 
-/* PCB Circuit Pattern Background */
 .bg-circuit-grid {
   background-color: #070a13;
-  background-image: 
+  background-image:
     radial-gradient(circle at 1px 1px, rgba(14, 165, 233, 0.12) 1px, transparent 0),
     linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 24px 24px, 48px 48px, 48px 48px;
 }
 
-/* Glow filters */
 .glow-cyan {
   filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.6)) drop-shadow(0 0 16px rgba(6, 182, 212, 0.3));
 }
@@ -36,7 +34,6 @@
   filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.6)) drop-shadow(0 0 16px rgba(168, 85, 247, 0.3));
 }
 
-/* Shake animation for errors */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   20%, 60% { transform: translateX(-8px); }
@@ -47,7 +44,6 @@
   animation: shake 0.4s ease-in-out;
 }
 
-/* Pulse animation for active wires */
 @keyframes pulse-wire {
   0%, 100% { stroke-opacity: 0.9; stroke-width: 3.5px; }
   50% { stroke-opacity: 1; stroke-width: 5px; }
@@ -57,7 +53,6 @@
   animation: pulse-wire 1.5s infinite ease-in-out;
 }
 
-/* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

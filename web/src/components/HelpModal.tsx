@@ -13,7 +13,7 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-2xl shadow-cyan-950/50 overflow-hidden">
-        {/* Header Modal */}
+
         <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/60 px-5 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-950/70 border border-blue-500/40 text-blue-400">
@@ -40,9 +40,8 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
           </button>
         </div>
 
-        {/* Contenido */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4 text-xs sm:text-sm text-slate-300">
-          {/* Instrucciones de Uso */}
+
           <div className="space-y-2">
             <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
               <BookOpen className="h-3.5 w-3.5" />
@@ -87,7 +86,6 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Créditos del Equipo */}
           <div className="space-y-2 pt-2 border-t border-slate-800">
             <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
               <Users className="h-3.5 w-3.5" />
@@ -114,7 +112,6 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* Enlaces */}
           <div className="flex flex-wrap items-center justify-between gap-2 pt-2">
             <a
               href="https://github.com/TilinezzZ/ProyFinalSlides"
@@ -131,7 +128,6 @@ export const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Footer */}
         <div className="border-t border-slate-800 bg-slate-950/60 px-5 py-3 flex items-center justify-end">
           <button
             onClick={() => {

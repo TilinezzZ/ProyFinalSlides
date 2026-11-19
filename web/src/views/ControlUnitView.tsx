@@ -26,19 +26,15 @@ interface ControlUnitViewProps {
 export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark' }) => {
   const isLight = theme === 'light'
 
-  // Instrucción seleccionada para resaltar en tablas y diagrama
   const [selectedInstruction, setSelectedInstruction] = useState<string>('R-format')
-  // Señal seleccionada para ver tooltip/detalles
+
   const [selectedSignal, setSelectedSignal] = useState<string>('RegDst')
 
-  // Estado del Modo Decodificador (6 bits de Opcode)
   const [decoderBits, setDecoderBits] = useState<string[]>(['0', '0', '0', '0', '0', '0'])
 
-  // Estado del Quiz
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number | null>>({})
   const [quizSubmitted, setQuizSubmitted] = useState<Record<number, boolean>>({})
 
-  // Decodificar los 6 bits actuales
   const currentOpcode = decoderBits.join('')
   const matchedTruthRow = TRUTH_TABLE_OPCODES.find(
     (row) =>
@@ -69,7 +65,7 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 space-y-8 animate-in fade-in duration-300">
-      {/* 1. Header de la Sección */}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-900/30 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -89,7 +85,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
           </p>
         </div>
 
-        {/* Selector de Instrucción Activa */}
         <div className="flex items-center gap-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
           <span className="text-[11px] font-mono text-slate-400 px-2 font-bold">Instrucción:</span>
           {CONTROL_SIGNALS_MATRIX.map((row) => (
@@ -111,10 +106,8 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
         </div>
       </div>
 
-      {/* 2. Aviso de Discrepancias Académicas (en_BR vs RegWrite, 3 vs 4 bits) */}
       <DiscrepancyNotice />
 
-      {/* 3. Diagrama Visual Interactivo de la Unidad de Control */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -130,10 +123,9 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
           </span>
         </div>
 
-        {/* Diagrama SVG de la Unidad de Control */}
         <div className="w-full flex justify-center py-2 overflow-x-auto">
           <svg viewBox="0 0 760 320" className="w-full max-w-3xl h-auto select-none">
-            {/* Bus de entrada Opcode */}
+
             <line x1="40" y1="160" x2="200" y2="160" stroke="#00f0ff" strokeWidth="3" />
             <polygon points="195,155 205,160 195,165" fill="#00f0ff" />
             <text x="110" y="145" fill="#38bdf8" fontSize="12" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
@@ -143,7 +135,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
               6 bits ({selectedMatrixRow.opcode})
             </text>
 
-            {/* Caja Central de la Unidad de Control */}
             <rect
               x="200"
               y="20"
@@ -162,7 +153,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
               Control Unit RTL
             </text>
 
-            {/* Señales de salida a la derecha */}
             {[
               { id: 'RegDst', y: 70, val: selectedMatrixRow.regDst },
               { id: 'Branch', y: 95, val: selectedMatrixRow.branch },
@@ -186,7 +176,7 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
                   }}
                   className="cursor-pointer hover:opacity-100 transition-opacity"
                 >
-                  {/* Cable */}
+
                   <line
                     x1="440"
                     y1={sig.y}
@@ -200,7 +190,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
                     fill={isSelected ? '#00f0ff' : isValOne ? '#38bdf8' : '#475569'}
                   />
 
-                  {/* Etiqueta de la señal */}
                   <rect
                     x="455"
                     y={sig.y - 10}
@@ -239,7 +228,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
           </svg>
         </div>
 
-        {/* Tarjeta explicativa de la señal seleccionada */}
         <div className="p-4 rounded-xl bg-slate-950 border border-cyan-800/40 space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2">
@@ -276,7 +264,6 @@ export const ControlUnitView: React.FC<ControlUnitViewProps> = ({ theme = 'dark'
         </div>
       </div>
 
-      {/* 4. Tabla de Señales de Control */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-3 shadow-xl`}>

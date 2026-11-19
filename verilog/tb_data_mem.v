@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_data_mem
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_data_mem;
@@ -34,14 +31,12 @@ module tb_data_mem;
         #15;
         rst = 0;
 
-        // Escribir valor 99 en dirección 32'h00000020
         Address_In = 32'h00000020;
         Data_In = 32'd99;
         MemWrite = 1;
         #10;
         MemWrite = 0;
 
-        // Leer valor en dirección 32'h00000020
         MemRead = 1;
         #10;
         if (Lectura !== 32'd99) $error("Error leyendo dato escrito en RAM");

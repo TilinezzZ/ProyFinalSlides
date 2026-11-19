@@ -31,7 +31,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
   const [zoomLevel, setZoomLevel] = useState<number>(1)
   const [hoveredComponentId, setHoveredComponentId] = useState<string | null>(null)
 
-  // Determinar componentes activos por defecto si no se pasan explícitamente
   const defaultActiveComponentsForInstruction: Record<string, string[]> = {
     R: [
       'pc', 'adder_pc4', 'instruction_mem', 'control_unit', 'mux2',
@@ -58,7 +57,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
     ]
   }
 
-  // Determinar cables activos por defecto si no se pasan explícitamente
   const defaultActiveWiresForInstruction: Record<string, string[]> = {
     R: [
       'pc_to_imem', 'pc_to_adder_pc4', 'imem_out', 'adder_pc4_out',
@@ -109,19 +107,17 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
     if (!isActive) {
       return isLight ? '#cbd5e1' : '#1e293b'
     }
-    // Código de color consistente pedido por el usuario:
-    // Señales de control: azul claro
-    // Cables de datos: cian
+
     if (wire.isControl || wire.colorType === 'control') {
-      return '#38bdf8' // azul claro brillante (cyan-400 / sky-400)
+      return '#38bdf8'
     }
     if (wire.colorType === 'address') {
-      return '#34d399' // esmeralda
+      return '#34d399'
     }
     if (wire.colorType === 'feedback') {
-      return '#fbbf24' // ámbar para bucles largos
+      return '#fbbf24'
     }
-    return '#00f0ff' // cian neón de datos
+    return '#00f0ff'
   }
 
   return (
@@ -132,7 +128,7 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
     }`}
     style={{ minHeight: height }}
     >
-      {/* Controles de Zoom */}
+
       {showZoomControls && (
         <div className={`absolute top-3 right-3 z-20 flex items-center gap-1 rounded-xl p-1 backdrop-blur-md border shadow-md ${
           isLight ? 'bg-white/90 border-slate-300' : 'bg-slate-900/90 border-slate-800'
@@ -167,7 +163,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
         </div>
       )}
 
-      {/* Título o subtítulo si se especifica */}
       {caption && (
         <div className={`absolute top-3 left-4 z-20 text-xs font-mono font-bold flex items-center gap-2 ${
           isLight ? 'text-cyan-700' : 'text-cyan-400'
@@ -182,7 +177,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
         </div>
       )}
 
-      {/* Contenedor SVG escalable */}
       <div
         className="w-full h-full flex items-center justify-center p-2"
         style={{
@@ -214,7 +208,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
             </linearGradient>
           </defs>
 
-          {/* 1. CABLES Y BUSES */}
           <g id="wires-layer">
             {WIRES.map((wire) => {
               const isActive = effectiveActiveWires.includes(wire.id)
@@ -236,7 +229,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     filter={isActive ? `url(#glow-wire-${theme})` : undefined}
                   />
 
-                  {/* Pulso de partícula animada en cables activos */}
                   {isActive && (
                     <circle r="4" fill="#ffffff" filter={`url(#glow-wire-${theme})`}>
                       <animateMotion
@@ -251,7 +243,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
             })}
           </g>
 
-          {/* 2. COMPONENTES DEL DATAPATH */}
           <g id="components-layer">
             {COMPONENTS.map((comp) => {
               const isActive = effectiveActiveComponents.includes(comp.id)
@@ -269,7 +260,7 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     !isActive ? 'opacity-30 grayscale filter' : 'opacity-100'
                   }`}
                 >
-                  {/* Borde exterior iluminado si está activo */}
+
                   <rect
                     x="-2"
                     y="-2"
@@ -290,7 +281,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     filter={isActive ? `url(#glow-wire-${theme})` : undefined}
                   />
 
-                  {/* Cuerpo del Componente */}
                   <rect
                     x="0"
                     y="0"
@@ -302,7 +292,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     strokeWidth="1.2"
                   />
 
-                  {/* Banda superior de chip */}
                   <rect
                     x="0"
                     y="0"
@@ -313,11 +302,9 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     opacity={isActive ? 0.45 : 0.6}
                   />
 
-                  {/* Contactos / Pines */}
                   <circle cx="6" cy="9" r="2" fill={isActive ? '#38bdf8' : '#64748b'} />
                   <circle cx={width - 6} cy="9" r="2" fill={isActive ? '#38bdf8' : '#64748b'} />
 
-                  {/* Etiqueta del Componente */}
                   <text
                     x={width / 2}
                     y={height > 70 ? 28 : height / 2 + 3}
@@ -330,7 +317,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     {comp.shortLabel}
                   </text>
 
-                  {/* Subetiqueta de categoría */}
                   {height > 85 && (
                     <text
                       x={width / 2}
@@ -345,7 +331,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
                     </text>
                   )}
 
-                  {/* Icono de inspección si es clickeable */}
                   {onSelectComponent && (
                     <g transform={`translate(${width - 15}, ${height - 15})`} opacity={isActive ? 0.8 : 0.3}>
                       <circle cx="5" cy="5" r="5" fill="#0284c7" />
@@ -359,7 +344,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
             })}
           </g>
 
-          {/* 3. LEYENDA INFERIOR DE VALORES DE BUSES */}
           {Object.keys(busValues).length > 0 && (
             <g id="live-bus-overlay">
               {Object.entries(busValues).map(([key, val], idx) => {
@@ -406,7 +390,6 @@ export const DatapathDiagram: React.FC<DatapathDiagramProps> = ({
         </svg>
       </div>
 
-      {/* Indicador de estado al pie */}
       <div className={`w-full border-t px-4 py-1.5 flex items-center justify-between text-[11px] font-mono ${
         isLight ? 'bg-slate-100 border-slate-200 text-slate-600' : 'bg-slate-950/80 border-slate-800 text-slate-400'
       }`}>

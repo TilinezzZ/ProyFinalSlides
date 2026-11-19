@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_pc
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_pc;
@@ -16,7 +13,6 @@ module tb_pc;
         .pc(pc)
     );
 
-    // Generador de reloj (periodo = 10ns -> 100MHz)
     always #5 clk = ~clk;
 
     initial begin

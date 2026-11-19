@@ -22,7 +22,7 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-2xl shadow-cyan-950/50 overflow-hidden">
-        {/* Header Modal */}
+
         <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/60 px-5 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-400">
@@ -49,7 +49,6 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
           </button>
         </div>
 
-        {/* Selector de formato: R, I, J */}
         <div className="flex border-b border-slate-800 bg-slate-950/30 px-5 gap-2 pt-3">
           {INSTRUCTION_FORMATS.map((fmt) => (
             <button
@@ -72,9 +71,8 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
           ))}
         </div>
 
-        {/* Contenido del Formato */}
         <div className="flex-1 overflow-y-auto p-5 space-y-5">
-          {/* Descripción general */}
+
           <div className="bg-slate-950/50 p-4 rounded-xl border border-slate-800 flex flex-col gap-1">
             <div className="flex items-center gap-2">
               <span className="text-xs font-bold text-cyan-400 font-mono">Sintaxis:</span>
@@ -85,14 +83,12 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
             <p className="text-xs text-slate-300 mt-1">{currentInfo.description}</p>
           </div>
 
-          {/* DIAGRAMA DE BITS (REPRESENTACIÓN VISUAL INTERACTIVA) */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <BookOpen className="h-3.5 w-3.5 text-cyan-400" />
               Distribución de los 32 bits en memoria
             </h4>
 
-            {/* Barra de bits dividida */}
             <div className="flex rounded-xl overflow-hidden border border-slate-700 bg-slate-950 shadow-inner">
               {currentInfo.fields.map((field, idx) => (
                 <div
@@ -110,7 +106,6 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
             </div>
           </div>
 
-          {/* Explicación campo por campo */}
           <div>
             <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
               Detalle de cada campo
@@ -135,7 +130,6 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
             </div>
           </div>
 
-          {/* Ejemplos reales decodificados */}
           <div>
             <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5" />
@@ -165,7 +159,6 @@ export const InstructionFormats: React.FC<InstructionFormatsProps> = ({
           </div>
         </div>
 
-        {/* Footer */}
         <div className="border-t border-slate-800 bg-slate-950/60 px-5 py-3 flex items-center justify-end">
           <button
             onClick={() => {

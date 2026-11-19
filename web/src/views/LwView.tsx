@@ -23,36 +23,28 @@ interface LwViewProps {
 export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
   const isLight = theme === 'light'
 
-  // Alternar entre modo LW (Load Word) y SW (Store Word)
   const [operationMode, setOperationMode] = useState<'lw' | 'sw'>('lw')
 
-  // Estado editable de las tablas
   const [registers, setRegisters] = useState<RegisterEntry[]>(INITIAL_LW_REGISTERS)
   const [memory, setMemory] = useState<MemoryEntry[]>(INITIAL_LW_MEMORY)
 
-  // Operandos seleccionados
-  const [selectedRs, setSelectedRs] = useState<number>(16) // $s0 (valor 24)
-  const [selectedRt, setSelectedRt] = useState<number>(8)  // $t0 (valor 125)
+  const [selectedRs, setSelectedRs] = useState<number>(16)
+  const [selectedRt, setSelectedRt] = useState<number>(8)
   const [offset, setOffset] = useState<number>(2)
 
-  // Estado de animación y resaltado
   const [highlightedReg, setHighlightedReg] = useState<number | null>(null)
   const [highlightedMemAddr, setHighlightedMemAddr] = useState<number | null>(null)
 
-  // Paso actual de la simulación
   const [currentStep, setCurrentStep] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  // Obtener valor del registro base rs
   const baseRegEntry = registers.find((r) => r.regNumber === selectedRs) || registers[0]
   const baseValue = baseRegEntry.value
   const computedAddress = baseValue + offset
 
-  // Buscar dato en memoria en la dirección calculada
   const memoryEntry = memory.find((m) => m.address === computedAddress)
   const memValue = memoryEntry ? memoryEntry.value : 0
 
-  // Pasos de simulación para LW y SW
   const lwSteps = [
     {
       num: 1,
@@ -118,11 +110,10 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
   const currentStepsList = operationMode === 'lw' ? lwSteps : swSteps
   const currentStepData = currentStepsList[currentStep] || currentStepsList[0]
 
-  // Ejecutar transferencia real interactiva entre Tablas
   const handleExecuteTransfer = () => {
     sounds.playSnap()
     if (operationMode === 'lw') {
-      // LW: Memoria -> Registro
+
       setHighlightedMemAddr(computedAddress)
       setTimeout(() => {
         setRegisters((prev) =>
@@ -132,7 +123,7 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
         sounds.playVictory()
       }, 500)
     } else {
-      // SW: Registro -> Memoria
+
       const rtEntry = registers.find((r) => r.regNumber === selectedRt)
       const dataToStore = rtEntry ? rtEntry.value : 0
       setHighlightedReg(selectedRt)
@@ -146,7 +137,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
     }
   }
 
-  // Restablecer tablas al estado original
   const handleResetTables = () => {
     sounds.playClick()
     setRegisters(INITIAL_LW_REGISTERS)
@@ -155,7 +145,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
     setHighlightedMemAddr(null)
   }
 
-  // Reproductor automático
   useEffect(() => {
     let timer: number | null = null
     if (isPlaying) {
@@ -178,7 +167,7 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 space-y-6 animate-in fade-in duration-300">
-      {/* 1. Header con Toggle LW / SW */}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-900/30 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -199,7 +188,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
           </p>
         </div>
 
-        {/* Toggle LW vs SW */}
         <div className="flex items-center rounded-xl bg-slate-900/90 p-1 border border-slate-800 shadow-inner">
           <button
             onClick={() => {
@@ -234,12 +222,10 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* Nota académica si está en SW */}
       {operationMode === 'sw' && (
         <DiscrepancyNotice filterId="sw_semantics_slide27" />
       )}
 
-      {/* 2. Formato de Instrucción y Señales Activas */}
       <div className={`p-4 rounded-xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } flex flex-wrap items-center justify-between gap-3 text-xs font-mono`}>
@@ -276,7 +262,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 3. DIAGRAMA RTL REUTILIZABLE CON CAMINO ACTIVO */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -360,7 +345,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
         />
       </div>
 
-      {/* 4. VISUALIZACIÓN INTERACTIVA DE LAS TABLAS */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -393,7 +377,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
           </div>
         </div>
 
-        {/* Panel de Configuración de Parámetros */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono">
           <div>
             <label className="text-slate-400 block mb-1">Registro Base $rs:</label>
@@ -445,9 +428,8 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
           )}
         </div>
 
-        {/* Tablas lado a lado */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* BANCO DE REGISTROS (7 a 17) */}
+
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold text-white uppercase">
@@ -486,7 +468,6 @@ export const LwView: React.FC<LwViewProps> = ({ theme = 'dark' }) => {
             </div>
           </div>
 
-          {/* MEMORIA DE DATOS (20 a 30) */}
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold text-white uppercase">

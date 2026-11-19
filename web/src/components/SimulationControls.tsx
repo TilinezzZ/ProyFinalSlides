@@ -54,7 +54,7 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
   return (
     <div className="w-full border-t border-cyan-900/40 bg-slate-950/95 backdrop-blur-md p-3 sm:p-4 shadow-2xl">
       <div className="mx-auto max-w-7xl flex flex-col gap-3">
-        {/* Barra 1: Selector de Instrucción a Simular */}
+
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 pb-2.5">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -88,9 +88,8 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
           </div>
         </div>
 
-        {/* Barra 2: Stepper de Fases y Controles de Reproducción */}
         <div className="flex flex-wrap items-center justify-between gap-3">
-          {/* Stepper de Fases */}
+
           <div className="flex items-center gap-1 sm:gap-2">
             {phases.map((ph, idx) => {
               const isCurrent = currentStepIndex === idx
@@ -128,7 +127,6 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
             })}
           </div>
 
-          {/* Botones de Reproducción */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => {
@@ -194,7 +192,6 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
               <SkipForward className="h-4 w-4" />
             </button>
 
-            {/* Selector de velocidad */}
             <div className="flex items-center gap-1 bg-slate-900 border border-slate-800 rounded-lg p-0.5 ml-1">
               <Gauge className="h-3 w-3 text-slate-500 ml-1.5" />
               {[0.5, 1, 2].map((s) => (
@@ -217,7 +214,6 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
           </div>
         </div>
 
-        {/* Tarjeta explicativa de la fase actual */}
         <div className="p-3 sm:p-3.5 rounded-xl bg-slate-900/90 border border-cyan-900/40 shadow-inner flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-1 max-w-3xl">
             <div className="flex items-center gap-2">
@@ -233,7 +229,6 @@ export const SimulationControls: React.FC<SimulationControlsProps> = ({
             </p>
           </div>
 
-          {/* Señales de Control activas en este instante */}
           <div className="flex sm:flex-col items-center sm:items-end gap-1.5 flex-wrap sm:min-w-[190px]">
             <span className="text-[10px] uppercase font-mono text-slate-400 font-bold">
               Señales de Control:

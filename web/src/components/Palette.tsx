@@ -21,7 +21,6 @@ export const Palette: React.FC<PaletteProps> = ({
   const [filterCategory, setFilterCategory] = useState<string>('all')
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  // Filtrar componentes no colocados
   const unplacedComponents = components.filter((c) => !placedComponents[c.id])
 
   const filteredComponents = unplacedComponents.filter((comp) => {
@@ -54,9 +53,9 @@ export const Palette: React.FC<PaletteProps> = ({
   return (
     <div className="w-full border-t border-cyan-950/60 bg-slate-950/90 backdrop-blur-md px-3 py-2.5 shadow-2xl">
       <div className="mx-auto max-w-7xl flex flex-col gap-2">
-        {/* Barra superior de la paleta: Filtros, Búsqueda y Contador */}
+
         <div className="flex flex-wrap items-center justify-between gap-2">
-          {/* Categorías */}
+
           <div className="flex items-center gap-1 overflow-x-auto pb-1 max-w-full">
             {categories.map((cat) => (
               <button
@@ -76,7 +75,6 @@ export const Palette: React.FC<PaletteProps> = ({
             ))}
           </div>
 
-          {/* Buscador y Contador */}
           <div className="flex items-center gap-2">
             <div className="relative">
               <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-slate-500" />
@@ -95,7 +93,6 @@ export const Palette: React.FC<PaletteProps> = ({
           </div>
         </div>
 
-        {/* Carrusel / Lista de Piezas disponibles */}
         {unplacedComponents.length === 0 ? (
           <div className="py-4 text-center flex flex-col items-center justify-center gap-1.5 text-emerald-400">
             <CheckCircle2 className="h-6 w-6" />
@@ -141,7 +138,6 @@ export const Palette: React.FC<PaletteProps> = ({
                     </div>
                   </div>
 
-                  {/* Botón de inspeccionar info */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation()

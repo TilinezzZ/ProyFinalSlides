@@ -30,7 +30,6 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
     { key: 'jump', label: 'Jump' }
   ]
 
-  // Map to instruction type for DatapathDiagram
   const getDiagramInstr = (instr: string): 'R' | 'lw' | 'sw' | 'beq' | 'j' => {
     switch (instr) {
       case 'R-format':
@@ -50,7 +49,7 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 space-y-6 animate-in fade-in duration-300">
-      {/* 1. Header */}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-900/30 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -70,7 +69,6 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
           </p>
         </div>
 
-        {/* Selectores lado a lado */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 bg-slate-900/90 p-1.5 rounded-xl border border-slate-800">
             <span className="text-xs font-mono text-cyan-400 font-bold">Instr A:</span>
@@ -110,7 +108,6 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 2. TABLA COMPARATIVA DE SEÑALES DE CONTROL */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-3 shadow-xl`}>
@@ -185,9 +182,8 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 3. DIAGRAMAS LADO A LADO */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Diagrama A */}
+
         <div className={`p-4 rounded-2xl border ${
           isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
         } space-y-3 shadow-xl`}>
@@ -211,7 +207,6 @@ export const CompareView: React.FC<CompareViewProps> = ({ theme = 'dark' }) => {
           </p>
         </div>
 
-        {/* Diagrama B */}
         <div className={`p-4 rounded-2xl border ${
           isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
         } space-y-3 shadow-xl`}>

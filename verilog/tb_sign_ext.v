@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_sign_ext
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_sign_ext;
@@ -13,12 +10,11 @@ module tb_sign_ext;
     );
 
     initial begin
-        // Caso positivo (+4)
+
         in = 16'h0004;
         #10;
         if (out !== 32'h00000004) $error("Error en extensión de número positivo");
 
-        // Caso negativo (-4 = 0xFFFC)
         in = 16'hFFFC;
         #10;
         if (out !== 32'hFFFFFFFC) $error("Error en extensión de número negativo");

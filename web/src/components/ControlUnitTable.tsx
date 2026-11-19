@@ -40,7 +40,7 @@ export const ControlUnitTable: React.FC<ControlUnitTableProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-2xl shadow-cyan-950/50 overflow-hidden">
-        {/* Header Modal */}
+
         <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/60 px-5 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-950/70 border border-amber-500/40 text-amber-400">
@@ -67,13 +67,11 @@ export const ControlUnitTable: React.FC<ControlUnitTableProps> = ({
           </button>
         </div>
 
-        {/* Contenido Modal */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           <p className="text-xs text-slate-300">
             Haz clic en cualquier instrucción para resaltar sus señales activas y leer la justificación técnica de arquitectura de computadoras:
           </p>
 
-          {/* TABLA INTERACTIVA DE SEÑALES */}
           <div className="overflow-x-auto rounded-xl border border-slate-800 shadow-lg">
             <table className="w-full text-left text-xs font-mono">
               <thead className="bg-slate-950 text-slate-400 uppercase text-[11px] border-b border-slate-800">
@@ -117,7 +115,6 @@ export const ControlUnitTable: React.FC<ControlUnitTableProps> = ({
                         </div>
                       </td>
 
-                      {/* Señales de Control */}
                       <td className="px-2 py-3 text-center">
                         <span
                           className={`px-2 py-0.5 rounded ${
@@ -226,7 +223,6 @@ export const ControlUnitTable: React.FC<ControlUnitTableProps> = ({
             </table>
           </div>
 
-          {/* Panel explicativo de la instrucción seleccionada */}
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
@@ -262,7 +258,6 @@ export const ControlUnitTable: React.FC<ControlUnitTableProps> = ({
           </div>
         </div>
 
-        {/* Footer */}
         <div className="border-t border-slate-800 bg-slate-950/60 px-5 py-3 flex items-center justify-end">
           <button
             onClick={() => {

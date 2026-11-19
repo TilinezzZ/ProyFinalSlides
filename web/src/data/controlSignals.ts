@@ -1,8 +1,3 @@
-// ============================================================================
-// Datos de la Unidad de Control
-// Arquitectura de Computadoras - MIPS 32-bit
-// ============================================================================
-
 export interface SignalTooltip {
   name: string
   fullName: string
@@ -103,7 +98,6 @@ export const CONTROL_SIGNALS_INFO: Record<string, SignalTooltip> = {
   }
 }
 
-// Tabla de Señales de Control
 export interface ControlMatrixRow {
   instruction: string
   label: string
@@ -204,7 +198,6 @@ export const CONTROL_SIGNALS_MATRIX: ControlMatrixRow[] = [
   }
 ]
 
-// Tabla de Verdad de la Unidad de Control
 export interface TruthTableRow {
   instruction: string
   op5: string
@@ -251,7 +244,6 @@ export const TRUTH_TABLE_OPCODES: TruthTableRow[] = [
   }
 ]
 
-// Tabla de ALU Control (Códigos de 4 bits y 3 bits)
 export interface AluControlTableRow {
   instruction: string
   aluOp: string
@@ -337,7 +329,6 @@ export const ALU_CONTROL_TABLE: AluControlTableRow[] = [
   }
 ]
 
-// Mini-Quiz interactivo para autoevaluación
 export interface QuizQuestion {
   id: number
   question: string

@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_register_file
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_register_file;
@@ -39,20 +36,17 @@ module tb_register_file;
         #15;
         rst = 0;
 
-        // Leer registros iniciales $17 y $18
         AR1 = 5'd17;
         AR2 = 5'd18;
         #10;
         if (DR1 !== 32'd25 || DR2 !== 32'd15) $error("Error en valores iniciales");
 
-        // Escribir en $8 ($t0)
         AW = 5'd8;
         DW = 32'd40;
         en_BR = 1;
         #10;
         en_BR = 0;
 
-        // Verificar lectura de $8
         AR1 = 5'd8;
         #10;
         if (DR1 !== 32'd40) $error("Error escribiendo en registro $8");

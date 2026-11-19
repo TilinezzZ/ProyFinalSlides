@@ -1,4 +1,3 @@
-// Service Worker de limpieza forzada e invalidacion de cache
 self.addEventListener('install', (event) => {
   self.skipWaiting();
 });

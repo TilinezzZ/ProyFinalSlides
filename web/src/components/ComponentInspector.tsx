@@ -27,7 +27,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
       <div className="relative w-full max-w-2xl max-h-[90vh] flex flex-col rounded-2xl border border-cyan-500/30 bg-slate-900 shadow-2xl shadow-cyan-950/50 overflow-hidden">
-        {/* Header Modal */}
+
         <div className="flex items-center justify-between border-b border-slate-800 bg-slate-950/60 px-5 py-4">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-950/70 border border-cyan-500/40 text-cyan-400">
@@ -57,7 +57,6 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
           </button>
         </div>
 
-        {/* Pestañas de Navegación interna */}
         <div className="flex border-b border-slate-800 bg-slate-950/30 px-5 gap-4">
           <button
             onClick={() => setActiveTab('info')}
@@ -94,7 +93,6 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
           </button>
         </div>
 
-        {/* Contenido según pestaña */}
         <div className="flex-1 overflow-y-auto p-5 space-y-4">
           {activeTab === 'info' && (
             <div className="space-y-4">
@@ -145,7 +143,7 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
 
           {activeTab === 'ports' && (
             <div className="space-y-4">
-              {/* Entradas */}
+
               <div>
                 <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
@@ -176,7 +174,6 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
                 </div>
               </div>
 
-              {/* Salidas */}
               <div>
                 <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-cyan-400" />
@@ -240,7 +237,6 @@ export const ComponentInspector: React.FC<ComponentInspectorProps> = ({
           )}
         </div>
 
-        {/* Footer */}
         <div className="border-t border-slate-800 bg-slate-950/60 px-5 py-3 flex items-center justify-end">
           <button
             onClick={() => {

@@ -25,7 +25,6 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
   const [inspectedComponent, setInspectedComponent] = useState<DatapathComponent | null>(null)
   const [challengeModalOpen, setChallengeModalOpen] = useState<boolean>(false)
 
-  // Feedback Toast
   const [feedbackMessage, setFeedbackMessage] = useState<{
     text: string
     type: 'success' | 'error' | 'info'
@@ -42,29 +41,24 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
     }, 3500)
   }
 
-  // Componentes colocados
   const [placedComponents, setPlacedComponents] = useState<Record<string, boolean>>({})
 
-  // Estado del Modo Reto
   const [challengeTime, setChallengeTime] = useState<number>(0)
   const [challengeScore, setChallengeScore] = useState<number>(1000)
   const [mistakes, setMistakes] = useState<number>(0)
   const [isTimerActive, setIsTimerActive] = useState<boolean>(false)
 
-  // Estado de la Simulación
   const [selectedScenarioId, setSelectedScenarioId] = useState<string>(globalInstruction)
   const [currentStepIndex, setCurrentStepIndex] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const [simSpeed, setSimSpeed] = useState<number>(1)
 
-  // Sincronizar con el selector global de instrucción
   useEffect(() => {
     if (globalInstruction) {
       setSelectedScenarioId(globalInstruction === 'beq' ? 'beq_taken' : globalInstruction)
     }
   }, [globalInstruction])
 
-  // Cronómetro Reto
   useEffect(() => {
     let interval: number | null = null
     if (puzzleMode === 'challenge' && isTimerActive) {
@@ -77,7 +71,6 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
     }
   }, [puzzleMode, isTimerActive])
 
-  // Simulación Automática
   useEffect(() => {
     let timer: number | null = null
     if (puzzleMode === 'simulate' && isPlaying) {
@@ -208,7 +201,7 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
 
   return (
     <div className="w-full flex-1 flex flex-col items-center justify-between overflow-hidden">
-      {/* Subbarra de Modos del Rompecabezas */}
+
       <div className="w-full px-4 py-2 border-b border-cyan-900/30 bg-slate-950/60 backdrop-blur-sm flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <div className="flex items-center rounded-xl bg-slate-900/90 p-1 border border-slate-800">
@@ -267,7 +260,6 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
           )}
         </div>
 
-        {/* Progreso / Cronómetro */}
         <div className="flex items-center gap-3">
           {puzzleMode === 'challenge' ? (
             <div className="flex items-center gap-3 bg-amber-950/40 border border-amber-500/30 rounded-lg px-3 py-1 text-xs font-mono">
@@ -294,7 +286,6 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
         </div>
       </div>
 
-      {/* Lienzo del Rompecabezas */}
       <main className="w-full flex-1 flex flex-col items-center justify-center relative overflow-hidden">
         <DatapathCanvas
           mode={puzzleMode}
@@ -312,7 +303,6 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
         />
       </main>
 
-      {/* Panel Inferior: Paleta o Controles de Simulación */}
       <footer className="w-full shrink-0 z-30">
         {puzzleMode === 'simulate' ? (
           <SimulationControls
@@ -345,13 +335,11 @@ export const DatapathView: React.FC<DatapathViewProps> = ({
         )}
       </footer>
 
-      {/* Modal Inspector */}
       <ComponentInspector
         component={inspectedComponent}
         onClose={() => setInspectedComponent(null)}
       />
 
-      {/* Modal Reto Completado */}
       <ChallengeModal
         isOpen={challengeModalOpen}
         onClose={() => setChallengeModalOpen(false)}

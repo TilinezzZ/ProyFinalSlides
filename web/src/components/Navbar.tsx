@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         : 'bg-slate-950/85 border-cyan-900/40 text-slate-100'
     }`}>
       <div className="mx-auto flex flex-wrap items-center justify-between gap-3 max-w-7xl">
-        {/* 1. Logo y Título */}
+
         <div
           onClick={() => {
             sounds.playClick()
@@ -92,7 +92,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* 2. Menú de Pestañas de Navegación Principal */}
         <nav className="flex items-center gap-1 rounded-xl bg-slate-900/70 p-1 border border-slate-800 shadow-inner overflow-x-auto max-w-full">
           {navItems.map((item) => {
             const isActive = currentRoute === item.route
@@ -117,9 +116,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           })}
         </nav>
 
-        {/* 3. Selector Global de Instrucción y Herramientas */}
         <div className="flex items-center gap-2">
-          {/* Selector Global de Instrucción */}
+
           <div className="hidden md:flex items-center gap-1 bg-slate-900/80 px-2 py-1 rounded-xl border border-slate-800 text-xs font-mono">
             <span className="text-slate-400 text-[10px] uppercase font-bold flex items-center gap-1">
               <Zap className="h-3 w-3 text-emerald-400" />
@@ -144,7 +142,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </div>
 
-          {/* Formatos MIPS */}
           <button
             onClick={() => {
               sounds.playClick()
@@ -157,7 +154,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="hidden lg:inline">Formatos</span>
           </button>
 
-          {/* Selector de Tema Claro / Oscuro */}
           <button
             onClick={() => {
               sounds.playClick()
@@ -170,7 +166,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             {isLight ? <Moon className="h-3.5 w-3.5 text-indigo-400" /> : <Sun className="h-3.5 w-3.5 text-amber-400" />}
           </button>
 
-          {/* Sonido */}
           <button
             onClick={() => {
               sounds.playClick()
@@ -187,7 +182,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
-          {/* Ayuda y Créditos */}
           <button
             onClick={() => {
               sounds.playClick()
@@ -200,7 +194,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             <HelpCircle className="h-3.5 w-3.5 text-blue-400" />
           </button>
 
-          {/* Repo GitHub */}
           <a
             href="https://github.com/TilinezzZ/ProyFinalSlides"
             target="_blank"

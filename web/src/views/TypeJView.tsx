@@ -20,21 +20,17 @@ interface TypeJViewProps {
 export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
   const isLight = theme === 'light'
 
-  // Paso actual de la simulación paso a paso (0 a 4)
   const [currentStep, setCurrentStep] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  // Calculadora interactiva de salto
   const [currentPcHex, setCurrentPcHex] = useState<string>('00400014')
   const [targetIndexHex, setTargetIndexHex] = useState<string>('0010008')
 
-  // Bucle (Loop con beq y j)
   const [loopCounter, setLoopCounter] = useState<number>(0)
   const loopTarget = 3
   const [loopActiveLine, setLoopActiveLine] = useState<number>(0)
   const [isLoopRunning, setIsLoopRunning] = useState<boolean>(false)
 
-  // Cálculo de salto
   const currentPcNum = parseInt(currentPcHex, 16) || 0x00400000
   const pcPlus4Num = currentPcNum + 4
   const pcPlus4Hex = pcPlus4Num.toString(16).padStart(8, '0').toUpperCase()
@@ -44,10 +40,8 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
   const shiftedTargetNum = (targetIndexNum << 2) & 0x0fffffff
   const shiftedTargetHex = shiftedTargetNum.toString(16).padStart(7, '0').toUpperCase()
 
-  // Concatenación: 4 bits de PC+4 [31:28] + 28 bits de target desplazado
   const finalJumpAddrHex = `${top4BitsHex}${shiftedTargetHex}`
 
-  // Pasos de simulación de Tipo J
   const stepsData = [
     {
       num: 1,
@@ -88,7 +82,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
 
   const currentStepData = stepsData[currentStep]
 
-  // Reproductor automático
   useEffect(() => {
     let timer: number | null = null
     if (isPlaying) {
@@ -109,7 +102,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
     }
   }, [isPlaying, stepsData.length])
 
-  // Simulación del Bucle con beq y j
   useEffect(() => {
     let timer: number | null = null
     if (isLoopRunning) {
@@ -117,19 +109,19 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
         setLoopActiveLine((prev) => {
           sounds.playPulse()
           if (prev === 0) {
-            // Línea 1: addi $s1, $s1, 1
+
             setLoopCounter((c) => c + 1)
             return 1
           } else if (prev === 1) {
-            // Línea 2: beq $s1, $s2, exit
+
             if (loopCounter >= loopTarget) {
               sounds.playVictory()
               setIsLoopRunning(false)
-              return 3 // Salir a exit
+              return 3
             }
-            return 2 // Seguir a j loop
+            return 2
           } else if (prev === 2) {
-            // Línea 3: j loop (regresa al inicio del bucle)
+
             return 0
           } else {
             setIsLoopRunning(false)
@@ -145,7 +137,7 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 space-y-6 animate-in fade-in duration-300">
-      {/* 1. Header */}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-900/30 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -170,7 +162,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 2. FORMATO DE LA INSTRUCCIÓN TIPO J */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-3 shadow-xl`}>
@@ -200,7 +191,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 3. SIMULACIÓN PASO A PASO CON EL DATAPATH */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -284,7 +274,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
         />
       </div>
 
-      {/* 4. CALCULADORA DE DIRECCIÓN DE SALTO CON CATENACIÓN BIT A BIT */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -327,7 +316,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
           </div>
         </div>
 
-        {/* Representación visual de la concatenación */}
         <div className="p-4 rounded-xl bg-slate-950 border border-purple-800/40 space-y-2">
           <span className="text-xs font-mono text-slate-400 block font-bold">
             Concatenación Resultante (32 bits):
@@ -348,7 +336,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 5. EJEMPLO DE BUCLE (BUCLE CON BEQ Y J) */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -391,7 +378,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
           <code className="text-amber-300">beq $s1, $s2, exit</code> se cumple, saltando fuera del ciclo.
         </p>
 
-        {/* Código Assembly simulado */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 font-mono text-xs space-y-2">
             <div
@@ -435,7 +421,6 @@ export const TypeJView: React.FC<TypeJViewProps> = ({ theme = 'dark' }) => {
             </div>
           </div>
 
-          {/* Estado de las variables del bucle */}
           <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-3 font-mono text-xs">
             <div className="space-y-2">
               <div className="flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800">

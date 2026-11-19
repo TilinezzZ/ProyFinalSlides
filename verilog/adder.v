@@ -1,8 +1,3 @@
-// ============================================================================
-// Proyecto: Procesador MIPS Monociclo de 32 bits (Datapath Completo)
-// Módulo: adder (Sumador combinacional de N bits parametrizado)
-// Utilizado para: Sumador PC+4 y Sumador de Branch
-// ============================================================================
 `timescale 1ns / 1ps
 
 module adder #(

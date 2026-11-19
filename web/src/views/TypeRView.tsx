@@ -20,16 +20,13 @@ interface TypeRViewProps {
 export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
   const isLight = theme === 'light'
 
-  // Paso actual de la simulación paso a paso (0 a 8)
   const [currentStep, setCurrentStep] = useState<number>(0)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  // Campos interactivos editables
   const [rsValue, setRsValue] = useState<number>(25)
   const [rtValue, setRtValue] = useState<number>(15)
   const [selectedFunct, setSelectedFunct] = useState<string>('add')
 
-  // Opciones de funct
   const functOptions = [
     { id: 'add', name: 'add (Suma)', bin: '100000', op: (a: number, b: number) => a + b, symbol: '+' },
     { id: 'sub', name: 'sub (Resta)', bin: '100010', op: (a: number, b: number) => a - b, symbol: '-' },
@@ -41,7 +38,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
   const currentFunctObj = functOptions.find((f) => f.id === selectedFunct) || functOptions[0]
   const calculatedResult = currentFunctObj.op(rsValue, rtValue)
 
-  // Los 9 pasos exactos solicitados por el usuario
   const stepsData: {
     num: number
     title: string
@@ -171,7 +167,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
 
   const currentStepData = stepsData[currentStep]
 
-  // Reproducción automática de pasos
   useEffect(() => {
     let timer: number | null = null
     if (isPlaying) {
@@ -194,7 +189,7 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 sm:p-6 space-y-6 animate-in fade-in duration-300">
-      {/* 1. Header */}
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyan-900/30 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -214,14 +209,12 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
           </p>
         </div>
 
-        {/* Resumen del camino activo */}
         <div className="flex items-center gap-2 text-xs font-mono bg-cyan-950/40 p-2.5 rounded-xl border border-cyan-800/40 text-cyan-300">
           <CheckCircle2 className="h-4 w-4 text-emerald-400" />
           <span>Memoria de Datos atenuada (no se accede a RAM)</span>
         </div>
       </div>
 
-      {/* 2. FORMATO DE LA INSTRUCCIÓN */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-3 shadow-xl`}>
@@ -235,7 +228,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
           <span className="text-xs font-mono text-cyan-400">add $rd, $rs, $rt</span>
         </div>
 
-        {/* Barra de 32 bits */}
         <div className="flex rounded-xl overflow-hidden border border-slate-700 bg-slate-950 text-center shadow-inner font-mono text-xs">
           <div className="p-2.5 border-r border-slate-800 bg-cyan-950/50 text-cyan-300" style={{ flex: 6 }}>
             <span className="font-bold block">op</span>
@@ -270,11 +262,10 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
         </div>
       </div>
 
-      {/* 3. SIMULACIÓN PASO A PASO CON CONTROLES */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
-        {/* Controles del Reproductor de Pasos */}
+
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-3">
           <div className="flex items-center gap-2">
             <span className="text-xs font-mono font-bold text-cyan-400">
@@ -336,12 +327,10 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
           </div>
         </div>
 
-        {/* Explicación del paso */}
         <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800">
           {currentStepData.short}
         </p>
 
-        {/* DIAGRAMA REUTILIZABLE CON COMPONENTES INACTIVOS ATENUADOS */}
         <DatapathDiagram
           activeInstruction="R"
           activeComponentIds={currentStepData.activeComponents}
@@ -354,7 +343,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
         />
       </div>
 
-      {/* 4. CALCULADORA INTERACTIVA DE OPERANDOS Y FUNCT */}
       <div className={`p-5 rounded-2xl border ${
         isLight ? 'bg-white border-slate-200' : 'bg-slate-900/80 border-slate-800'
       } space-y-4 shadow-xl`}>
@@ -369,7 +357,7 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          {/* rs */}
+
           <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
             <label className="text-[10px] font-mono text-emerald-400 uppercase font-bold block">
               Operando A ($rs / DR1)
@@ -382,7 +370,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
             />
           </div>
 
-          {/* Selector de funct */}
           <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
             <label className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">
               Operación (funct)
@@ -403,7 +390,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
             </select>
           </div>
 
-          {/* rt */}
           <div className="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
             <label className="text-[10px] font-mono text-blue-400 uppercase font-bold block">
               Operando B ($rt / DR2)
@@ -416,7 +402,6 @@ export const TypeRView: React.FC<TypeRViewProps> = ({ theme = 'dark' }) => {
             />
           </div>
 
-          {/* Resultado */}
           <div className="p-3 rounded-xl bg-slate-950 border border-cyan-800 space-y-1 flex flex-col justify-center">
             <span className="text-[10px] font-mono text-cyan-300 uppercase font-bold">
               Resultado en $rd (DW)

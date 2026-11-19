@@ -57,7 +57,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
   }
 
   const handleSlotClick = (slotComponent: DatapathComponent) => {
-    // Si el usuario tiene una pieza seleccionada de la paleta, intentar colocarla en este slot
+
     if (selectedPaletteComponentId) {
       if (selectedPaletteComponentId !== slotComponent.id) {
         setShakingSlotId(slotComponent.id)
@@ -65,23 +65,23 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
       }
       onSlotDrop(slotComponent.id, selectedPaletteComponentId)
     } else if (placedComponents[slotComponent.id]) {
-      // Si ya está colocada, abrir el inspector al hacer click
+
       sounds.playClick()
       onSelectComponent(slotComponent)
     }
   }
 
   const getWireStrokeColor = (wire: WirePath, isActive: boolean) => {
-    if (!isActive) return '#1e293b' // slate-800
+    if (!isActive) return '#1e293b'
     switch (wire.colorType) {
       case 'control':
-        return '#c084fc' // purple-400
+        return '#c084fc'
       case 'address':
-        return '#34d399' // emerald-400
+        return '#34d399'
       case 'data':
-        return '#38bdf8' // sky-400
+        return '#38bdf8'
       case 'feedback':
-        return '#fbbf24' // amber-400
+        return '#fbbf24'
       default:
         return '#38bdf8'
     }
@@ -89,7 +89,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
 
   return (
     <div className="relative w-full flex-1 flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden select-none">
-      {/* Toast Feedback flotante */}
+
       {feedbackMessage && (
         <div
           className={`absolute top-4 z-30 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium shadow-2xl transition-all duration-300 animate-bounce flex items-center gap-2 border ${
@@ -104,7 +104,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
         </div>
       )}
 
-      {/* Controles de Zoom */}
       <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5 bg-slate-900/80 backdrop-blur-md border border-slate-800 rounded-xl p-1 shadow-lg">
         <button
           onClick={() => setZoomLevel((z) => Math.min(z + 0.15, 1.6))}
@@ -132,7 +131,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
         </button>
       </div>
 
-      {/* Contenedor SVG principal con zoom y pan */}
       <div
         className="w-full h-full max-w-6xl max-h-[720px] rounded-2xl border border-cyan-900/30 bg-circuit-grid shadow-2xl shadow-cyan-950/30 overflow-hidden relative flex items-center justify-center"
         style={{
@@ -147,7 +145,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
           preserveAspectRatio="xMidYMid meet"
         >
           <defs>
-            {/* Filtros de Resplandor Neón */}
+
             <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
               <feGaussianBlur stdDeviation="3" result="blur" />
               <feMerge>
@@ -164,7 +162,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
               </feMerge>
             </filter>
 
-            {/* Gradientes */}
             <linearGradient id="chip-grad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0f172a" />
               <stop offset="100%" stopColor="#090d16" />
@@ -176,12 +173,10 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
             </linearGradient>
           </defs>
 
-          {/* 1. LEYENDA DEL DATAPATH */}
           <text x="30" y="35" fill="#38bdf8" fontSize="13" fontWeight="bold" fontFamily="monospace" opacity="0.8">
             ESQUEMA RTL MIPS
           </text>
 
-          {/* 2. CABLES Y BUSES SVG */}
           <g id="wires-group">
             {wires.map((wire) => {
               const isActive = activeWireIds.includes(wire.id)
@@ -191,7 +186,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
 
               return (
                 <g key={wire.id}>
-                  {/* Cable principal */}
+
                   <path
                     d={wire.d}
                     fill="none"
@@ -205,7 +200,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                     className={isActive ? 'transition-all duration-300' : ''}
                   />
 
-                  {/* Partícula de pulso animada que viaja por el cable si está activo */}
                   {isActive && (
                     <circle r="4.5" fill="#ffffff" filter="url(#glow-cyan)">
                       <animateMotion
@@ -220,7 +214,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
             })}
           </g>
 
-          {/* 3. SLOTS Y COMPONENTES DEL ROMPECABEZAS */}
           <g id="slots-group">
             {components.map((comp) => {
               const isPlaced = placedComponents[comp.id]
@@ -243,9 +236,9 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                   }`}
                 >
                   {isPlaced ? (
-                    /* COMPONENTE COLOCADO */
+
                     <g>
-                      {/* Sombra / Halo de resplandor si está activo */}
+
                       <rect
                         x="-2"
                         y="-2"
@@ -259,7 +252,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         filter={isActive ? 'url(#glow-cyan)' : undefined}
                       />
 
-                      {/* Cuerpo del Chip / Componente */}
                       <rect
                         x="0"
                         y="0"
@@ -271,7 +263,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         strokeWidth="1.2"
                       />
 
-                      {/* Banda superior de tipo chip */}
                       <rect
                         x="0"
                         y="0"
@@ -282,11 +273,9 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         opacity="0.35"
                       />
 
-                      {/* Pines metálicos decorativos en los bordes */}
                       <circle cx="6" cy="9" r="2" fill="#38bdf8" opacity="0.8" />
                       <circle cx={width - 6} cy="9" r="2" fill="#38bdf8" opacity="0.8" />
 
-                      {/* Etiqueta del Componente */}
                       <text
                         x={width / 2}
                         y={height > 70 ? 28 : height / 2 + 3}
@@ -299,7 +288,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         {comp.shortLabel}
                       </text>
 
-                      {/* Subtítulo / Categoría si cabe */}
                       {height > 85 && (
                         <text
                           x={width / 2}
@@ -314,7 +302,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         </text>
                       )}
 
-                      {/* Botón de inspeccionar */}
                       <g
                         transform={`translate(${width - 16}, ${height - 16})`}
                         onClick={(e) => {
@@ -330,7 +317,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                         </text>
                       </g>
 
-                      {/* Botón de remover pieza (solo en Aprender y Reto) */}
                       {mode !== 'simulate' && (
                         <g
                           transform={`translate(-6, -6)`}
@@ -348,7 +334,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                       )}
                     </g>
                   ) : (
-                    /* SLOT VACÍO (SILUETA) */
+
                     <g>
                       <rect
                         x="0"
@@ -370,7 +356,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                       />
 
                       {mode === 'learn' ? (
-                        /* Modo Aprender: Muestra el nombre sugerido */
+
                         <g>
                           <text
                             x={width / 2}
@@ -396,7 +382,7 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
                           </text>
                         </g>
                       ) : (
-                        /* Modo Reto: Muestra signo de interrogación o número */
+
                         <g>
                           <text
                             x={width / 2}
@@ -419,7 +405,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
             })}
           </g>
 
-          {/* 4. VALORES DE BUSES FLOTANTES EN SIMULACIÓN */}
           {mode === 'simulate' && (
             <g id="bus-values-overlay">
               {Object.entries(busValues).map(([key, val], idx) => {
@@ -452,7 +437,6 @@ export const DatapathCanvas: React.FC<DatapathCanvasProps> = ({
         </svg>
       </div>
 
-      {/* Pista rápida al pie del lienzo */}
       <div className="mt-2 text-center text-xs text-slate-400 flex items-center justify-center gap-2">
         <Info className="h-3.5 w-3.5 text-cyan-400" />
         <span>

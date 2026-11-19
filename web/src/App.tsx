@@ -11,7 +11,7 @@ import { HelpModal } from './components/HelpModal'
 import { sounds } from './utils/audio'
 
 export function App() {
-  // 1. Manejo de Rutas compatible con Vercel y Browser History
+
   const parseRouteFromLocation = (): NavRoute => {
     if (typeof window === 'undefined') return 'datapath'
     const path = window.location.pathname.toLowerCase()
@@ -27,7 +27,6 @@ export function App() {
 
   const [currentRoute, setCurrentRoute] = useState<NavRoute>(parseRouteFromLocation)
 
-  // Escuchar eventos de navegación de retroceso/avance
   useEffect(() => {
     const handlePopState = () => {
       setCurrentRoute(parseRouteFromLocation())
@@ -45,7 +44,6 @@ export function App() {
     }
   }
 
-  // 2. Estado de Tema (Claro / Oscuro)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('mips_theme')
@@ -69,17 +67,14 @@ export function App() {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
   }
 
-  // 3. Selector Global de Instrucción
   const [globalInstruction, setGlobalInstruction] = useState<GlobalInstruction>('R')
 
-  // 4. Audio
   const [soundEnabled, setSoundEnabled] = useState<boolean>(true)
   const toggleSound = () => {
     const s = sounds.toggleSound()
     setSoundEnabled(s)
   }
 
-  // 5. Modales
   const [formatsOpen, setFormatsOpen] = useState<boolean>(false)
   const [helpOpen, setHelpOpen] = useState<boolean>(false)
 
@@ -89,7 +84,7 @@ export function App() {
         ? 'bg-slate-100 text-slate-800'
         : 'bg-circuit-grid text-slate-100'
     }`}>
-      {/* 1. Barra de Navegación Superior */}
+
       <Navbar
         currentRoute={currentRoute}
         onNavigate={handleNavigate}
@@ -103,7 +98,6 @@ export function App() {
         onOpenHelp={() => setHelpOpen(true)}
       />
 
-      {/* 2. Vista Activa */}
       <div className="flex-1 flex flex-col">
         {currentRoute === 'datapath' && (
           <DatapathView theme={theme} globalInstruction={globalInstruction} />
@@ -130,7 +124,6 @@ export function App() {
         )}
       </div>
 
-      {/* 3. Modales Globales */}
       <InstructionFormats
         isOpen={formatsOpen}
         onClose={() => setFormatsOpen(false)}

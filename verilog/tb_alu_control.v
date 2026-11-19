@@ -1,6 +1,3 @@
-// ============================================================================
-// Testbench: tb_alu_control
-// ============================================================================
 `timescale 1ns / 1ps
 
 module tb_alu_control;
@@ -15,22 +12,19 @@ module tb_alu_control;
     );
 
     initial begin
-        // lw / sw
+
         alu_op = 2'b00; funct = 6'b000000;
         #10;
         if (alu_ctrl !== 3'b010) $error("Fallo lw/sw -> ADD");
 
-        // beq
         alu_op = 2'b01; funct = 6'b000000;
         #10;
         if (alu_ctrl !== 3'b110) $error("Fallo beq -> SUB");
 
-        // R-type add
         alu_op = 2'b10; funct = 6'b100000;
         #10;
         if (alu_ctrl !== 3'b010) $error("Fallo R-type add");
 
-        // R-type sub
         alu_op = 2'b10; funct = 6'b100010;
         #10;
         if (alu_ctrl !== 3'b110) $error("Fallo R-type sub");
